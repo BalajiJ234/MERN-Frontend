@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import PlaceList from "../components/PlaceList";
 
+
 const DUMMY_PLACES = [
   {
     id: "p1",
@@ -19,7 +20,7 @@ const DUMMY_PLACES = [
   },
   {
     id: "p2",
-    title: "Empire State Building",
+    title: "Emp. State Building",
     description: "One of the most famous sky scrappers in the world",
     imageUrl:
       "https://www.history.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_686/MTU3ODc4NjA0ODYzOTA3NTUx/image-placeholder-title.webp",

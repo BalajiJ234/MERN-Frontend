@@ -1,56 +1,57 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect } from 'react';
 
-import { validate } from "../../util/validators";
-import "./Input.css";
+import { validate } from '../../util/validators';
+import './Input.css';
 
 const inputReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE":
+    case 'CHANGE':
       return {
         ...state,
         value: action.val,
-        isValid: validate(action.val, action.validators),
+        isValid: validate(action.val, action.validators)
       };
-    case "TOUCH":
+    case 'TOUCH': {
       return {
         ...state,
-        isTouched: true,
-      };
+        isTouched: true
+      }
+    }
     default:
       return state;
   }
 };
 
-const Input = (props) => {
+const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.value || '',
-    isValid: false,
-    isTouched: props.valid || false,
+    isTouched: false,
+    isValid: props.valid || false
   });
 
   const { id, onInput } = props;
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    onInput(id, value, isValid);
+    onInput(id, value, isValid)
   }, [id, value, isValid, onInput]);
 
-  const touchHandler = (event) => {
+  const changeHandler = event => {
     dispatch({
-      type: "TOUCH",
+      type: 'CHANGE',
+      val: event.target.value,
+      validators: props.validators
     });
   };
 
-  const changeHandler = (event) => {
+  const touchHandler = () => {
     dispatch({
-      type: "CHANGE",
-      val: event.target.value,
-      validators: props.validators,
+      type: 'TOUCH'
     });
   };
 
   const element =
-    props.element === "input" ? (
+    props.element === 'input' ? (
       <input
         id={props.id}
         type={props.type}
@@ -71,9 +72,8 @@ const Input = (props) => {
 
   return (
     <div
-      className={`form-control ${
-        !inputState.isValid && inputState.isTouched && "form-control--invalid"
-      }`}
+      className={`form-control ${!inputState.isValid && inputState.isTouched &&
+        'form-control--invalid'}`}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
